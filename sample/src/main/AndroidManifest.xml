@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dh.demo">
 
+    <uses-permission android:name="com.tcl.mie.tlauncher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.tcl.mie.tlauncher.permission.WRITE_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +29,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
 
     </application>
 

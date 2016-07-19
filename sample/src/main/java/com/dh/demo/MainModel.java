@@ -6,7 +6,7 @@ package com.dh.demo;
 
 public class MainModel {
     public enum Type {
-        SystemUIIfLauncher
+        SystemUIIfLauncher,LauncherContentProvider
     }
 
     private Type type;
