@@ -1,25 +1,13 @@
 package com.dh.demo;
 
-import android.app.ActivityOptions;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dh.baseactivity.AdapterClickListener;
-import com.dh.baseactivity.ArbitraryFragmentActivity;
 import com.dh.baseactivity.BaseRecycleViewFragment;
 import com.dh.baseactivity.FragmentUtils;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
-import com.dh.demo.launcher.LauncherContentProviderActivity;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
-import com.dh.demo.launcher.contentprovider.launcher.LauncherSettings;
+import com.dh.demo.phoneinfo.PhoneInfoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,36 +47,9 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), SystemUIIfLauncherActionFragment.class, null, view);
 
         } else if (o.getType() == MainModel.Type.LauncherContentProvider) {
-
-            // Intent intent = new Intent(getActivity(), LauncherContentProviderActivity.class);
-            // intent.setData(LauncherSettings.Favorites.CONTENT_BACKUP_URI);
-            // intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            // startActivity(intent);
-
             FragmentUtils.navigateToInNewActivity(getActivity(), LauncherContentProviderFragment.class, null, view);
-
-            // Bundle bundle = new Bundle();
-            // Intent intent = new Intent(getActivity(), ArbitraryFragmentActivity.class);
-            // intent.putExtra(ArbitraryFragmentActivity.EXTRAS_FRAGMENT_CLASS_NAME,
-            // LauncherContentProviderFragment.class);
-            // intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            //
-            // if (view != null && FragmentUtils.hasJellyBean()) {
-            // int location[] = new int[2];
-            // view.getLocationOnScreen(location);
-            // ActivityOptions activityOptions = ActivityOptions.makeScaleUpAnimation(view,
-            // location[0], location[1],
-            // view.getWidth(), view.getHeight());
-            // if (bundle == null) {
-            // bundle = new Bundle();
-            // }
-            // intent.putExtra(ArbitraryFragmentActivity.EXTRAS_BUNDLE, bundle);
-            // getActivity().startActivity(intent, activityOptions.toBundle());
-            // } else {
-            // intent.putExtra(ArbitraryFragmentActivity.EXTRAS_BUNDLE, bundle);
-            // getActivity().startActivity(intent);
-            // }
-
+        } else if (o.getType() == MainModel.Type.PhoneInfo) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), PhoneInfoFragment.class, null, view);
         }
     }
 
@@ -106,6 +67,12 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setType(MainModel.Type.LauncherContentProvider);
         model.setTitle(getString(R.string.title_launcher_content_provider));
         model.setDes("LauncherContentProvider");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.PhoneInfo);
+        model.setTitle("手机信息");
+        model.setDes("手机详细信息");
         list.add(model);
 
         getAdapter().addItem(list);

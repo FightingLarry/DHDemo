@@ -5,13 +5,19 @@
     <uses-permission android:name="com.tcl.mie.tlauncher.permission.READ_SETTINGS" />
     <uses-permission android:name="com.tcl.mie.tlauncher.permission.WRITE_SETTINGS" />
 
+    <!--         获取mac地址权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--     获取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.dh.demo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
