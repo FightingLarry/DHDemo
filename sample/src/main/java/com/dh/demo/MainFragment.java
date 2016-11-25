@@ -1,5 +1,6 @@
 package com.dh.demo;
 
+import android.util.Log;
 import android.view.View;
 
 import com.dh.baseactivity.AdapterClickListener;
@@ -8,6 +9,8 @@ import com.dh.baseactivity.FragmentUtils;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
+import com.dh.demo.taskline.TaskFragment;
+import com.dh.demo.thread.WaitThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         super.initViews(v);
         getRecyclerView().setPullRefreshEnabled(false);
         getRecyclerView().setLoadingMoreEnabled(false);
+        Log.i("aaaa", "" + System.currentTimeMillis());
     }
 
     @Override
@@ -50,6 +54,10 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), LauncherContentProviderFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.PhoneInfo) {
             FragmentUtils.navigateToInNewActivity(getActivity(), PhoneInfoFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.WaitThread) {
+            WaitThread.execute();
+        } else if (o.getType() == MainModel.Type.TaskLine) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), TaskFragment.class, null, view);
         }
     }
 
@@ -73,6 +81,18 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setType(MainModel.Type.PhoneInfo);
         model.setTitle("手机信息");
         model.setDes("手机详细信息");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.WaitThread);
+        model.setTitle("测试现成等待");
+        model.setDes("测试现成等待");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.TaskLine);
+        model.setTitle("流水线工作");
+        model.setDes("流水线工作测试");
         list.add(model);
 
         getAdapter().addItem(list);
