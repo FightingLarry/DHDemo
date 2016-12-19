@@ -6,7 +6,7 @@ package com.dh.demo;
 
 public class MainModel {
     public enum Type {
-        SystemUIIfLauncher, LauncherContentProvider, PhoneInfo, WaitThread,TaskLine
+        SystemUIIfLauncher, LauncherContentProvider, PhoneInfo, WaitThread, TaskLine, Decode, TrackerService
     }
 
     private Type type;

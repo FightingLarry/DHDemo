@@ -1,5 +1,8 @@
 package com.dh.demo;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -7,13 +10,16 @@ import com.dh.baseactivity.AdapterClickListener;
 import com.dh.baseactivity.BaseRecycleViewFragment;
 import com.dh.baseactivity.FragmentUtils;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
+import com.dh.demo.encoding.EncodingFragment;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
 import com.dh.demo.taskline.TaskFragment;
 import com.dh.demo.thread.WaitThread;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -58,6 +64,30 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             WaitThread.execute();
         } else if (o.getType() == MainModel.Type.TaskLine) {
             FragmentUtils.navigateToInNewActivity(getActivity(), TaskFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.Decode) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), EncodingFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.TrackerService) {
+            startTwoService(getActivity());
+        }
+    }
+
+    private static final String PACKAGE_NAME = "com.android.tbks.debug";
+    private static final String BKS_SERVICE = "com.android.tbks.service.BksService";
+    private static final String POLLING_SERVICE = "com.tcl.activate.service.PollingService";
+
+    private static void startTwoService(Context context) {
+
+        // Android 5.0以后需显示启动service
+        Intent pollingIntent = new Intent();
+        pollingIntent.setClassName(PACKAGE_NAME, POLLING_SERVICE);
+        Intent bksIntent = new Intent();
+        bksIntent.setClassName(PACKAGE_NAME, BKS_SERVICE);
+        ComponentName cn_polling = context.startService(pollingIntent);
+        ComponentName cn_bks = context.startService(bksIntent);
+        if (cn_bks != null && cn_polling != null) {
+            Log.w("TrackerLyc", "success");
+        } else {
+            Log.w("TrackerLyc", "start tracker failed");
         }
     }
 
@@ -93,6 +123,18 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setType(MainModel.Type.TaskLine);
         model.setTitle("流水线工作");
         model.setDes("流水线工作测试");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.Decode);
+        model.setTitle("解密");
+        model.setDes("解密TR");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.TrackerService);
+        model.setTitle("TrackerService");
+        model.setDes("TrackerService");
         list.add(model);
 
         getAdapter().addItem(list);
