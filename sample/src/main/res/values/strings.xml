@@ -2,5 +2,6 @@
     <string name="app_name">DHDemo</string>
 
     <string name="title_launcher_content_provider">隐私模式切换</string>
+    <string name="title_alarm">AlarmManager的测试</string>
     <string name="copy">复制</string>
 </resources>

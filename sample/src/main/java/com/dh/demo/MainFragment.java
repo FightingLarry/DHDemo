@@ -9,6 +9,7 @@ import android.view.View;
 import com.dh.baseactivity.AdapterClickListener;
 import com.dh.baseactivity.BaseRecycleViewFragment;
 import com.dh.baseactivity.FragmentUtils;
+import com.dh.demo.alarm.AlarmFragment;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
 import com.dh.demo.encoding.EncodingFragment;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
@@ -17,9 +18,7 @@ import com.dh.demo.taskline.TaskFragment;
 import com.dh.demo.thread.WaitThread;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -68,6 +67,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), EncodingFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.TrackerService) {
             startTwoService(getActivity());
+        } else if (o.getType() == MainModel.Type.Alarm) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), AlarmFragment.class, null, view);
         }
     }
 
@@ -135,6 +136,11 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setType(MainModel.Type.TrackerService);
         model.setTitle("TrackerService");
         model.setDes("TrackerService");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.Alarm);
+        model.setTitle("AlarmManager管理测试");
         list.add(model);
 
         getAdapter().addItem(list);
