@@ -47,4 +47,6 @@ dependencies {
     /*PermissionsDispatcher*/
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
     compile project(':taskline')
+
+//    compile 'com.tcl.update:mie_updateSdk:1.1.7'
 }

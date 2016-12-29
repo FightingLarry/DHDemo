@@ -47,7 +47,6 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         super.initViews(v);
         getRecyclerView().setPullRefreshEnabled(false);
         getRecyclerView().setLoadingMoreEnabled(false);
-        Log.i("aaaa", "" + System.currentTimeMillis());
     }
 
     @Override
@@ -67,6 +66,18 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), EncodingFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.TrackerService) {
             startTwoService(getActivity());
+            for (int i = 0; i < 100; i++) {
+                Log.i("aaaa", "" + (Math.random() * 86400000 / 3600000));
+            }
+
+            Intent intent = new Intent();
+            intent.setClassName("com.tct.gallery3d", "com.tct.gallery3d.app.PermissionActivity");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getActivity().startActivity(intent);
+
+            Log.e("ycllll", intent.toUri(0));
+
+
         } else if (o.getType() == MainModel.Type.Alarm) {
             FragmentUtils.navigateToInNewActivity(getActivity(), AlarmFragment.class, null, view);
         }
