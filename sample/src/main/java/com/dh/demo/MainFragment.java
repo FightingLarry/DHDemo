@@ -11,6 +11,7 @@ import com.dh.baseactivity.BaseRecycleViewFragment;
 import com.dh.baseactivity.FragmentUtils;
 import com.dh.demo.alarm.AlarmFragment;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
+import com.dh.demo.defaultBrowser.DefaultBrowserFragment;
 import com.dh.demo.encoding.EncodingFragment;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class MainFragment extends BaseRecycleViewFragment implements AdapterClickListener<MainModel> {
 
+    private static final String TAG = "DHDemoMain";
     private MainAdapter mAdapter;
 
     @Override
@@ -77,11 +79,14 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
 
             Log.e("ycllll", intent.toUri(0));
 
-
         } else if (o.getType() == MainModel.Type.Alarm) {
             FragmentUtils.navigateToInNewActivity(getActivity(), AlarmFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.DefaultBrowser) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), DefaultBrowserFragment.class, null, view);
         }
+
     }
+
 
     private static final String PACKAGE_NAME = "com.android.tbks.debug";
     private static final String BKS_SERVICE = "com.android.tbks.service.BksService";
@@ -154,7 +159,14 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setTitle("AlarmManager管理测试");
         list.add(model);
 
+        model = new MainModel();
+        model.setType(MainModel.Type.DefaultBrowser);
+        model.setTitle("默认浏览器");
+        model.setDes("默认浏览器");
+        list.add(model);
         getAdapter().addItem(list);
+
+
         getAdapter().notifyDataSetChanged();
     }
 }
