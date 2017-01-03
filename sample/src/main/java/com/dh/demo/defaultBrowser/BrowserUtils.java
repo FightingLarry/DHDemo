@@ -8,7 +8,11 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.UserHandle;
+import android.text.TextUtils;
+import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +95,40 @@ public class BrowserUtils {
             }
             packageManager.addPreferredActivity(filter, IntentFilter.MATCH_CATEGORY_SCHEME, arrayOfComponentName,
                     component);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 需要权限<uses-permission android:name="android.permission.SET_PREFERRED_APPLICATIONS" /><br/>
+     * SET_PREFERRED_APPLICATIONS需要系统签名
+     */
+    public static void setDefaultBrowserPackageName(Context context, String pkgName) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                UserHandle userHandle = android.os.Process.myUserHandle();
+                // int myUserId = UserHandle.myUserId();
+                // int userId = android.os.Process.myUid();
+                Method userHandleMethod = userHandle.getClass().getDeclaredMethod("myUserId");
+                int userId = (int) userHandleMethod.invoke(userHandle);
+
+                PackageManager packageManager = context.getPackageManager();
+                Method getDefaultBrowserPackageNameMethod =
+                        packageManager.getClass().getDeclaredMethod("getDefaultBrowserPackageName", int.class);
+                String pkgNameInvoke = (String) getDefaultBrowserPackageNameMethod.invoke(packageManager, userId);
+
+                Log.i("lycccc", "userId=" + userId + ",pkgNameInvoke=" + pkgNameInvoke);
+
+                if (TextUtils.isEmpty(pkgNameInvoke) || !pkgNameInvoke.equals(pkgName)) {
+                    Method setDefaultBrowserPackageNameMethod = packageManager.getClass()
+                            .getDeclaredMethod("setDefaultBrowserPackageName", String.class, int.class);
+                    boolean success =
+                            (boolean) setDefaultBrowserPackageNameMethod.invoke(packageManager, pkgName, userId);
+                    Log.i("lycccc", "userId=" + userId + ",success=" + success);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

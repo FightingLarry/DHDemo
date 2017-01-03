@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,10 +19,14 @@ import com.dh.demo.R;
 
 public class DefaultBrowserFragment extends BaseFragment implements View.OnClickListener {
 
+    private static final String TAG = "DefaultBrowserFragment";
     private Button btn1;
     private Button btn2;
     private Button btn3;
     private Button btn4;
+    private Button btn5;
+
+    private int index = 0;
 
     @Override
     protected int getLayoutResource() {
@@ -44,6 +49,8 @@ public class DefaultBrowserFragment extends BaseFragment implements View.OnClick
         btn3.setOnClickListener(this);
         btn4 = (Button) view.findViewById(R.id.btn4);
         btn4.setOnClickListener(this);
+        btn5 = (Button) view.findViewById(R.id.btn5);
+        btn5.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +73,21 @@ public class DefaultBrowserFragment extends BaseFragment implements View.OnClick
                 ComponentName component =
                         new ComponentName("com.baidu.searchbox", "com.baidu.searchbox.BoxBrowserActivity");
                 BrowserUtils.setDefaultBrowser(getActivity(), component);
+                break;
+            case R.id.btn5:
+                // "com.baidu.searchbox", "com.baidu.searchbox.BoxBrowserActivity"
+                // com.android.browser/com.tencent.mtt.SplashActivity
+                // com.hawk.android.browser/.BrowserActivity
+                // com.quick.android.browser/com.hawk.android.browser.BrowserActivity
+                String[] pkgs = {"com.baidu.searchbox", "com.android.browser", "com.hawk.android.browser",
+                        "com.quick.android.browser"};
+                Log.w(TAG, pkgs[index]);
+                BrowserUtils.setDefaultBrowserPackageName(getActivity(), pkgs[index]);
+                if (index < 3) {
+                    index++;
+                } else {
+                    index = 0;
+                }
                 break;
         }
     }
