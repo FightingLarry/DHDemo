@@ -20,6 +20,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/taskline/java', 'src/Compat']
+            res.srcDirs = ['src/main/res']
+        }
+    }
+
     signingConfigs {
         debug {
             storeFile file('Camry')
@@ -46,7 +54,6 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
     /*PermissionsDispatcher*/
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
-    compile project(':taskline')
 
 //    compile 'com.tcl.update:mie_updateSdk:1.1.7'
 }

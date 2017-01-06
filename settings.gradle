@@ -1,1 +1,1 @@
-include ':sample', ':baseactivity', ':taskline', ':tasklinedemo'
+include ':sample', ':baseactivity'

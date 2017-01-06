@@ -17,6 +17,7 @@ import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
 import com.dh.demo.taskline.TaskFragment;
 import com.dh.demo.thread.WaitThread;
+import com.dh.demo.userstate.UserStateFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), AlarmFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.DefaultBrowser) {
             FragmentUtils.navigateToInNewActivity(getActivity(), DefaultBrowserFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.UserState) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), UserStateFragment.class, null, view);
         }
 
     }
@@ -163,6 +166,13 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setType(MainModel.Type.DefaultBrowser);
         model.setTitle("默认浏览器");
         model.setDes("默认浏览器");
+        list.add(model);
+        getAdapter().addItem(list);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.UserState);
+        model.setTitle("数据收集");
+        model.setDes("数据收集");
         list.add(model);
         getAdapter().addItem(list);
 
