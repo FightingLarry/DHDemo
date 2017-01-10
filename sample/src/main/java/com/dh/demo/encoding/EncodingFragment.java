@@ -25,7 +25,7 @@ public class EncodingFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_taskline;
+        return R.layout.fragment_normal;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class EncodingFragment extends BaseFragment {
 
         Log.e("yclll", decode(mText));
 
-        mTask = (Button) view.findViewById(R.id.task);
+        mTask = (Button) view.findViewById(R.id.button1);
         mTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

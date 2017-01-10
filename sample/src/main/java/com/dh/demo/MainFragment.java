@@ -13,6 +13,7 @@ import com.dh.demo.alarm.AlarmFragment;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
 import com.dh.demo.defaultBrowser.DefaultBrowserFragment;
 import com.dh.demo.encoding.EncodingFragment;
+import com.dh.demo.install.InstallFragment;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
 import com.dh.demo.taskline.TaskFragment;
@@ -56,7 +57,6 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
     public void onItemClick(View view, MainModel o, int position) {
         if (o.getType() == MainModel.Type.SystemUIIfLauncher) {
             FragmentUtils.navigateToInNewActivity(getActivity(), SystemUIIfLauncherActionFragment.class, null, view);
-
         } else if (o.getType() == MainModel.Type.LauncherContentProvider) {
             FragmentUtils.navigateToInNewActivity(getActivity(), LauncherContentProviderFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.PhoneInfo) {
@@ -86,6 +86,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), DefaultBrowserFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.UserState) {
             FragmentUtils.navigateToInNewActivity(getActivity(), UserStateFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.Install) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), InstallFragment.class, null, view);
         }
 
     }
@@ -173,6 +175,12 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setType(MainModel.Type.UserState);
         model.setTitle("数据收集");
         model.setDes("数据收集");
+        list.add(model);
+        getAdapter().addItem(list);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.Install);
+        model.setTitle("静默安装测试");
         list.add(model);
         getAdapter().addItem(list);
 

@@ -17,6 +17,10 @@
     <!--usagestats-->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
 
+    <!--需要platform签名，或者需要push到system/priv-app目录下-->
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+
+
     <application
         android:name=".DemoApplication"
         android:allowBackup="true"
