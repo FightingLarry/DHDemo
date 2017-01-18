@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.dh.baseactivity.AdapterClickListener;
 import com.dh.baseactivity.BaseRecycleViewFragment;
@@ -69,16 +70,16 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), EncodingFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.TrackerService) {
             startTwoService(getActivity());
-            for (int i = 0; i < 100; i++) {
-                Log.i("aaaa", "" + (Math.random() * 86400000 / 3600000));
-            }
-
-            Intent intent = new Intent();
-            intent.setClassName("com.tct.gallery3d", "com.tct.gallery3d.app.PermissionActivity");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getActivity().startActivity(intent);
-
-            Log.e("ycllll", intent.toUri(0));
+            // for (int i = 0; i < 100; i++) {
+            // Log.i("aaaa", "" + (Math.random() * 86400000 / 3600000));
+            // }
+            //
+            // Intent intent = new Intent();
+            // intent.setClassName("com.tct.gallery3d", "com.tct.gallery3d.app.PermissionActivity");
+            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // getActivity().startActivity(intent);
+            //
+            // Log.e("ycllll", intent.toUri(0));
 
         } else if (o.getType() == MainModel.Type.Alarm) {
             FragmentUtils.navigateToInNewActivity(getActivity(), AlarmFragment.class, null, view);
@@ -93,23 +94,23 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
     }
 
 
-    private static final String PACKAGE_NAME = "com.android.tbks.debug";
+    private static final String PACKAGE_NAME = "com.android.tbks";
     private static final String BKS_SERVICE = "com.android.tbks.service.BksService";
     private static final String POLLING_SERVICE = "com.tcl.activate.service.PollingService";
 
     private static void startTwoService(Context context) {
 
         // Android 5.0以后需显示启动service
-        Intent pollingIntent = new Intent();
-        pollingIntent.setClassName(PACKAGE_NAME, POLLING_SERVICE);
+        // Intent pollingIntent = new Intent();
+        // pollingIntent.setClassName(PACKAGE_NAME, POLLING_SERVICE);
         Intent bksIntent = new Intent();
         bksIntent.setClassName(PACKAGE_NAME, BKS_SERVICE);
-        ComponentName cn_polling = context.startService(pollingIntent);
+        // ComponentName cn_polling = context.startService(pollingIntent);
         ComponentName cn_bks = context.startService(bksIntent);
-        if (cn_bks != null && cn_polling != null) {
-            Log.w("TrackerLyc", "success");
+        if (cn_bks != null) {
+            Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
         } else {
-            Log.w("TrackerLyc", "start tracker failed");
+            Toast.makeText(context, "start tracker failed", Toast.LENGTH_SHORT).show();
         }
     }
 
