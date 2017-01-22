@@ -15,9 +15,6 @@ import android.widget.Button;
 
 import com.dh.demo.R;
 
-/**
- * Created by yancai.liu on 2017/1/22.
- */
 
 public class KeyguardManager {
 
@@ -108,6 +105,9 @@ public class KeyguardManager {
         int height = WindowManager.LayoutParams.MATCH_PARENT;
         mParams.height = height;
         mParams.gravity = Gravity.TOP;
+        /**
+         * 需要系统权限
+         */
         mParams.type = WindowManager.LayoutParams.TYPE_PHONE;
     }
 

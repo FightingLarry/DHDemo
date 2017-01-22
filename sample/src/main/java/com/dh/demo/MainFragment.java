@@ -91,7 +91,9 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         } else if (o.getType() == MainModel.Type.Install) {
             FragmentUtils.navigateToInNewActivity(getActivity(), InstallFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.KeyguardService) {
-            getActivity().startService(new Intent(getActivity(), KeyguardService.class));
+            Intent keyguardService = new Intent(getActivity(), KeyguardService.class);
+            keyguardService.setAction("ad");
+            getActivity().startService(keyguardService);
         }
 
     }
