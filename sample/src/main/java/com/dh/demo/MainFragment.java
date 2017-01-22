@@ -15,6 +15,7 @@ import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
 import com.dh.demo.defaultBrowser.DefaultBrowserFragment;
 import com.dh.demo.encoding.EncodingFragment;
 import com.dh.demo.install.InstallFragment;
+import com.dh.demo.keyguard.KeyguardService;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
 import com.dh.demo.taskline.TaskFragment;
@@ -89,6 +90,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), UserStateFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.Install) {
             FragmentUtils.navigateToInNewActivity(getActivity(), InstallFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.KeyguardService) {
+            getActivity().startService(new Intent(getActivity(), KeyguardService.class));
         }
 
     }
@@ -182,6 +185,12 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.Install);
         model.setTitle("静默安装测试");
+        list.add(model);
+        getAdapter().addItem(list);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.KeyguardService);
+        model.setTitle("Keyguard Service");
         list.add(model);
         getAdapter().addItem(list);
 

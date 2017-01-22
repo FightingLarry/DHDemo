@@ -21,6 +21,9 @@
     <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
 
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+
     <application
         android:name=".DemoApplication"
         android:allowBackup="true"
@@ -48,6 +51,8 @@
         </activity>
 
         <service android:name=".alarm.BksService" />
+
+        <service android:name="com.dh.demo.keyguard.KeyguardService" />
 
     </application>
 
