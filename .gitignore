@@ -22,3 +22,4 @@ libs/android-support-v4.jar.properties
 /captures/
 /bug/
 /proguard/
+*.apk
