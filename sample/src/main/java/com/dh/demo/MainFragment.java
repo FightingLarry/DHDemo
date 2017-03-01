@@ -11,6 +11,7 @@ import com.dh.baseactivity.AdapterClickListener;
 import com.dh.baseactivity.BaseRecycleViewFragment;
 import com.dh.baseactivity.FragmentUtils;
 import com.dh.demo.alarm.AlarmFragment;
+import com.dh.demo.baohuo.GrayService;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
 import com.dh.demo.defaultBrowser.DefaultBrowserFragment;
 import com.dh.demo.encoding.EncodingFragment;
@@ -94,6 +95,9 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             Intent keyguardService = new Intent(getActivity(), KeyguardService.class);
             keyguardService.setAction("ad");
             getActivity().startService(keyguardService);
+        } else if (o.getType() == MainModel.Type.GreyService) {
+            Intent grayService = new Intent(getActivity(), GrayService.class);
+            getActivity().startService(grayService);
         }
 
     }
@@ -193,6 +197,12 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.KeyguardService);
         model.setTitle("Keyguard Service");
+        list.add(model);
+        getAdapter().addItem(list);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.GreyService);
+        model.setTitle("灰色保活，前台Service");
         list.add(model);
         getAdapter().addItem(list);
 

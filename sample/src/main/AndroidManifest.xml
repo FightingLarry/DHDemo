@@ -54,6 +54,10 @@
 
         <service android:name="com.dh.demo.keyguard.KeyguardService" />
 
+        <service
+            android:name=".baohuo.GrayService"
+            android:process=":grey" />
+
     </application>
 
 </manifest>
