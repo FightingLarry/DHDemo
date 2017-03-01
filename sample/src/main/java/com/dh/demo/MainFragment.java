@@ -179,34 +179,30 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model.setTitle("默认浏览器");
         model.setDes("默认浏览器");
         list.add(model);
-        getAdapter().addItem(list);
 
         model = new MainModel();
         model.setType(MainModel.Type.UserState);
         model.setTitle("数据收集");
         model.setDes("数据收集");
         list.add(model);
-        getAdapter().addItem(list);
 
         model = new MainModel();
         model.setType(MainModel.Type.Install);
         model.setTitle("静默安装测试");
         list.add(model);
-        getAdapter().addItem(list);
 
         model = new MainModel();
         model.setType(MainModel.Type.KeyguardService);
         model.setTitle("Keyguard Service");
         list.add(model);
-        getAdapter().addItem(list);
 
         model = new MainModel();
         model.setType(MainModel.Type.GreyService);
         model.setTitle("灰色保活，前台Service");
         list.add(model);
+
+
         getAdapter().addItem(list);
-
-
         getAdapter().notifyDataSetChanged();
     }
 }
