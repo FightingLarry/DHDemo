@@ -9,7 +9,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 /**
- * Created by yancai.liu on 2017/3/1.
+ * Created by yancai.liu on 2017/3/1.<br/>
+ * 7.0会强制弹出一个通知，很不友好。
  */
 
 public class GrayService extends Service {
@@ -18,10 +19,11 @@ public class GrayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         if (Build.VERSION.SDK_INT < 18) {
             startForeground(GRAY_SERVICE_ID, new Notification());// API < 18
                                                                  // ，此方法能有效隐藏Notification上的图标
-        } else {
+        } else if (Build.VERSION.SDK_INT < 24) {
             Intent innerIntent = new Intent(this, GrayInnerService.class);
             startService(innerIntent);
             startForeground(GRAY_SERVICE_ID, new Notification());
