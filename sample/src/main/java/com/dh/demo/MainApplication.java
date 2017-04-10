@@ -3,11 +3,13 @@ package com.dh.demo;
 
 import android.app.Application;
 
+import com.dh.demo.hook.HookUtil;
+
 /**
  * Created by yancai.liu on 2016/12/23.
  */
 
-public class DemoApplication extends Application {
+public class MainApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -15,5 +17,7 @@ public class DemoApplication extends Application {
 
         // UpdateSdkManager.init(getApplicationContext());
 
+        HookUtil hookUtil = new HookUtil(null, this);
+        hookUtil.hookAms();
     }
 }

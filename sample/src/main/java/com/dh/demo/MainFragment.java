@@ -15,6 +15,7 @@ import com.dh.demo.baohuo.GrayService;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
 import com.dh.demo.defaultBrowser.DefaultBrowserFragment;
 import com.dh.demo.encoding.EncodingFragment;
+import com.dh.demo.hook.HookFragment;
 import com.dh.demo.install.InstallFragment;
 import com.dh.demo.keyguard.KeyguardService;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
@@ -98,6 +99,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         } else if (o.getType() == MainModel.Type.GreyService) {
             Intent grayService = new Intent(getActivity(), GrayService.class);
             getActivity().startService(grayService);
+        } else if (o.getType() == MainModel.Type.HookAms) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), HookFragment.class, null, view);
         }
 
     }
@@ -199,6 +202,11 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.GreyService);
         model.setTitle("灰色保活，前台Service");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.HookAms);
+        model.setTitle("Hook测试");
         list.add(model);
 
 
