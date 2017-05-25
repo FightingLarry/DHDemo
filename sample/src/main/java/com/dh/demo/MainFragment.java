@@ -3,7 +3,6 @@ package com.dh.demo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +19,7 @@ import com.dh.demo.install.InstallFragment;
 import com.dh.demo.keyguard.KeyguardService;
 import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
+import com.dh.demo.rxjava.RxJavaFragment;
 import com.dh.demo.taskline.TaskFragment;
 import com.dh.demo.thread.WaitThread;
 import com.dh.demo.userstate.UserStateFragment;
@@ -101,6 +101,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             getActivity().startService(grayService);
         } else if (o.getType() == MainModel.Type.HookAms) {
             FragmentUtils.navigateToInNewActivity(getActivity(), HookFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.RxJavaFragment) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), RxJavaFragment.class, null, view);
         }
 
     }
@@ -207,6 +209,11 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.HookAms);
         model.setTitle("Hook测试");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.RxJavaFragment);
+        model.setTitle("RxJavaFragment");
         list.add(model);
 
 

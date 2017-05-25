@@ -7,7 +7,8 @@ package com.dh.demo;
 public class MainModel {
     public enum Type {
         SystemUIIfLauncher, LauncherContentProvider, PhoneInfo, WaitThread, TaskLine, //
-        Decode, TrackerService, Alarm, DefaultBrowser, UserState, Install, KeyguardService, GreyService, HookAms
+        Decode, TrackerService, Alarm, DefaultBrowser, UserState, Install, KeyguardService, GreyService, HookAms//
+        , RxJavaFragment
     }
 
     private Type type;

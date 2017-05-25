@@ -51,9 +51,14 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".alarm.BksService" />
+        <service android:name=".alarm.BksService">
+            <intent-filter>
+                <action android:name="com.dh.demo.alarm.BksService.action1" />
+            </intent-filter>
+        </service>
 
         <service android:name="com.dh.demo.keyguard.KeyguardService" />
+
 
         <service
             android:name=".baohuo.GrayService"

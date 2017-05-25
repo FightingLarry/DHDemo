@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 /*PermissionsDispatcher*/
-apply plugin: 'android-apt'
+//apply plugin: 'android-apt'
 
 android {
 
@@ -13,6 +13,10 @@ android {
         targetSdkVersion Integer.parseInt(project.TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
@@ -43,6 +47,15 @@ android {
             keyPassword '123456789'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    //        compileOptions {
+//            sourceCompatibility JavaVersion.VERSION_1_8
+//            targetCompatibility JavaVersion.VERSION_1_8
+//        }
 }
 
 dependencies {
@@ -50,10 +63,15 @@ dependencies {
     compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
     compile project(':baseactivity')
-    /*PermissionsDispatcher*/
-    compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
-    /*PermissionsDispatcher*/
-    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
 
-//    compile 'com.tcl.update:mie_updateSdk:1.1.7'
+    //    compile 'com.tcl.update:mie_updateSdk:1.1.7'
+    compile "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
+
+    /*PermissionsDispatcher*/
+    //compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
+    compile('com.github.hotchemi:permissionsdispatcher:latest.release') {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:latest.release"
 }

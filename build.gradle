@@ -4,23 +4,27 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+
         maven {
             url "http://maven.lab.tclclouds.com/nexus/content/repositories/mie"
         }
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.3.+'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
         /*PermissionsDispatcher*/
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+//        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
         maven {
             url "http://maven.lab.tclclouds.com/nexus/content/repositories/mie"
         }
