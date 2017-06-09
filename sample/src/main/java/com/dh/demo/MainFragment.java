@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.dh.baseactivity.AdapterClickListener;
 import com.dh.baseactivity.BaseRecycleViewFragment;
 import com.dh.baseactivity.FragmentUtils;
+import com.dh.demo.ViewDragHelper.ViewDragHelperFragment;
 import com.dh.demo.alarm.AlarmFragment;
 import com.dh.demo.baohuo.GrayService;
 import com.dh.demo.broadcast.SystemUIIfLauncherActionFragment;
@@ -103,6 +104,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), HookFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.RxJavaFragment) {
             FragmentUtils.navigateToInNewActivity(getActivity(), RxJavaFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.ViewDragHelperFragment) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), ViewDragHelperFragment.class, null, view);
         }
 
     }
@@ -214,6 +217,11 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.RxJavaFragment);
         model.setTitle("RxJavaFragment");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.ViewDragHelperFragment);
+        model.setTitle("ViewDragHelperFragment");
         list.add(model);
 
 

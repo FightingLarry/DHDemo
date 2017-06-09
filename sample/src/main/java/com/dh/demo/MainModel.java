@@ -8,7 +8,7 @@ public class MainModel {
     public enum Type {
         SystemUIIfLauncher, LauncherContentProvider, PhoneInfo, WaitThread, TaskLine, //
         Decode, TrackerService, Alarm, DefaultBrowser, UserState, Install, KeyguardService, GreyService, HookAms//
-        , RxJavaFragment
+        , RxJavaFragment, ViewDragHelperFragment
     }
 
     private Type type;
