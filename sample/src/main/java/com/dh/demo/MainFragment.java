@@ -23,6 +23,7 @@ import com.dh.demo.phoneinfo.PhoneInfoFragment;
 import com.dh.demo.rxjava.RxJavaFragment;
 import com.dh.demo.taskline.TaskFragment;
 import com.dh.demo.thread.WaitThread;
+import com.dh.demo.topactivity.TopActivityFragment;
 import com.dh.demo.userstate.UserStateFragment;
 
 import java.util.ArrayList;
@@ -106,6 +107,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), RxJavaFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.ViewDragHelperFragment) {
             FragmentUtils.navigateToInNewActivity(getActivity(), ViewDragHelperFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.TopActivityFragment) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), TopActivityFragment.class, null, view);
         }
 
     }
@@ -222,6 +225,11 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.ViewDragHelperFragment);
         model.setTitle("ViewDragHelperFragment");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.TopActivityFragment);
+        model.setTitle("TopActivityFragment Test");
         list.add(model);
 
 

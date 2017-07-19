@@ -65,6 +65,8 @@
             android:exported="true"
             android:process=":grey" />
 
+        <service android:name=".topactivity.TopActivityService" />
+
     </application>
 
 </manifest>

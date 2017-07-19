@@ -4,6 +4,7 @@ package com.dh.demo;
 import android.app.Application;
 
 import com.dh.demo.hook.HookUtil;
+import com.dh.demo.topactivity.HookPmsUtil;
 
 /**
  * Created by yancai.liu on 2016/12/23.
@@ -19,5 +20,7 @@ public class MainApplication extends Application {
 
         HookUtil hookUtil = new HookUtil(null, this);
         hookUtil.hookAms();
+
+        HookPmsUtil.hookPackageManager(this);
     }
 }

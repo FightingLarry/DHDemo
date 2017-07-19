@@ -15,9 +15,7 @@ import org.reactivestreams.Subscription;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableSubscriber;
-import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Larry on 2017/5/25.
@@ -44,12 +42,14 @@ public class RxJavaFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mTask = (Button) view.findViewById(R.id.button1);
-        mTask.setOnClickListener((View v) -> {
-            Intent intent = new Intent();
-            intent.setPackage(getActivity().getPackageName());
-            intent.setAction(BksService.ACTION1);
-            getActivity().startService(intent);
-
+        mTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setPackage(getActivity().getPackageName());
+                intent.setAction(BksService.ACTION1);
+                getActivity().startService(intent);
+            }
         });
 
         // Observable.create(new ObservableOnSubscribe<Integer>() {
@@ -90,11 +90,12 @@ public class RxJavaFragment extends BaseFragment {
         });
 
         // 3
-        Flowable.fromCallable(() -> {
-            Thread.sleep(1000); // imitate expensive computation
-            return "Done";
-        }).subscribeOn(Schedulers.io()).observeOn(Schedulers.single()).subscribe((String s) -> Log.d(TAG, s),
-                Throwable::printStackTrace);
+        // Flowable.fromCallable(() -> {
+        // Thread.sleep(1000); // imitate expensive computation
+        // return "Done";
+        // }).subscribeOn(Schedulers.io()).observeOn(Schedulers.single()).subscribe((String s) ->
+        // Log.d(TAG, s),
+        // Throwable::printStackTrace);
         // try {
         // Thread.sleep(2000); // <--- wait for the flow to finish
         // } catch (InterruptedException e) {
@@ -102,27 +103,28 @@ public class RxJavaFragment extends BaseFragment {
         // }
 
         // 4
-        Flowable<String> source = Flowable.fromCallable(() -> {
-            Thread.sleep(1000); // imitate expensive computation
-            return "Done";
-        });
+        // Flowable<String> source = Flowable.fromCallable(() -> {
+        // Thread.sleep(1000); // imitate expensive computation
+        // return "Done";
+        // });
 
-        Flowable<String> runBackground = source.subscribeOn(Schedulers.io());
-        Flowable<String> showForeground = runBackground.observeOn(Schedulers.single());
+        // Flowable<String> runBackground = source.subscribeOn(Schedulers.io());
+        // Flowable<String> showForeground = runBackground.observeOn(Schedulers.single());
         // showForeground.subscribe(new Consumer<String>() {
         // @Override
         // public void accept(String s) throws Exception {
         // Log.d(TAG, s);
         // }
         // }, Throwable::printStackTrace);
-        showForeground.subscribe((String s) -> Log.d(TAG, s), Throwable::printStackTrace);
+        // showForeground.subscribe((String s) -> Log.d(TAG, s), Throwable::printStackTrace);
 
 
         // 5
-        Flowable.range(1, 10).observeOn(Schedulers.computation()).map(v -> v * v)
-                .blockingSubscribe(System.out::println);
+        // Flowable.range(1, 10).observeOn(Schedulers.computation()).map(v -> v * v)
+        // .blockingSubscribe(System.out::println);
 
         // 6
-        Observable.just(1, 2, 3, 4, 5).subscribe((Integer index) -> Log.d(TAG, String.format("index = %d", index)));
+        // Observable.just(1, 2, 3, 4, 5).subscribe((Integer index) -> Log.d(TAG,
+        // String.format("index = %d", index)));
     }
 }
