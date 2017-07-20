@@ -9,17 +9,22 @@ import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.UserHandle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +96,23 @@ public class TopActivityService extends Service {
             getInfoFromRecentsActivity();
 
 
+            // 6.授权的测试.授权的代码如grantPermission(Context context)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                int INSTALL_PACKAGES =
+                        getApplicationContext().checkSelfPermission("android.permission.INSTALL_PACKAGES");
+                Log.w(TAG,
+                        "android.permission.INSTALL_PACKAGES=" + (INSTALL_PACKAGES == PackageManager.PERMISSION_GRANTED
+                                ? "PERMISSION_GRANTED"
+                                : "PERMISSION_DENIED!!!"));
+
+                int PACKAGE_USAGE_STATS =
+                        getApplicationContext().checkSelfPermission("android.permission.PACKAGE_USAGE_STATS");
+                Log.w(TAG,
+                        "android.permission.PACKAGE_USAGE_STATS="
+                                + (PACKAGE_USAGE_STATS == PackageManager.PERMISSION_GRANTED
+                                        ? "PERMISSION_GRANTED"
+                                        : "PERMISSION_DENIED!!!"));
+            }
 
             mWorkerThread.postDelayed(this, 5000);
         }
@@ -223,6 +245,57 @@ public class TopActivityService extends Service {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private void grantPermission(Context context) {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            // public abstract void grantRuntimePermission( String packageName, String
+            // permissionName, UserHandle user);
+            try {
+
+                String pkg = "com.larry.demo";
+                // String permission = "android.permission.INSTALL_PACKAGES";
+                String permission = "android.permission.PACKAGE_USAGE_STATS";
+
+                PackageManager pm = context.getPackageManager();
+                ApplicationInfo ai = pm.getApplicationInfo(pkg, PackageManager.GET_ACTIVITIES);
+                // N以后的代码
+                // UserHandle.getUserHandleForUid(ai.uid);
+                // 自己程序的UserHandle
+                // UserHandle userHandle = android.os.Process.myUserHandle();
+
+                // int getUserId(int uid)
+                // of(getUserId(uid))
+
+                int uid = ai.uid;
+                Class<?> userHandleClass = UserHandle.class;
+
+                Method getUserIdMethod = userHandleClass.getDeclaredMethod("getUserId", int.class);
+                int userId = (int) getUserIdMethod.invoke(null, uid);
+                // Method ofMethod = userHandleClass.getDeclaredMethod("of", int.class);
+                // UserHandle userHandle = (UserHandle) ofMethod.invoke(null, userId);
+                Constructor constructor = userHandleClass.getDeclaredConstructor(int.class);
+                constructor.setAccessible(true);// 设置安全检查，访问私有构造函数必须
+                UserHandle userHandle = (UserHandle) constructor.newInstance(userId);
+
+                Method grantRuntimePermissionMethod = pm.getClass().getDeclaredMethod("grantRuntimePermission",
+                        String.class, String.class, UserHandle.class);
+                grantRuntimePermissionMethod.setAccessible(true);
+                grantRuntimePermissionMethod.invoke(pm, pkg, permission, userHandle);
+
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            } catch (java.lang.InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

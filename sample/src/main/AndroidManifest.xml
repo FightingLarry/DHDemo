@@ -23,9 +23,8 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--AMS getRecentTasks需要这两个权限-->
-    <uses-permission android:name="android.Manifest.permission.GET_TASKS" />
-    <uses-permission android:name="android.Manifest.permission.REAL_GET_TASKS" />
-
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REAL_GET_TASKS" />
 
     <application
         android:name=".MainApplication"
