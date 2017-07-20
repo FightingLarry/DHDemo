@@ -1,7 +1,6 @@
 package com.dh.demo.hook;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.lang.reflect.Field;
@@ -81,15 +80,11 @@ public class HookUtil {
                 sb.append(")");
                 argString = sb.toString();
             }
-            Log.i("HookUtil", method.getName() + argString);
+            Log.i("HookUtil", iActivityManagerObject.getClass().getSimpleName() + ":" + method.getName() + argString);
             // 我要在这里搞点事情
             if ("startActivity".contains(method.getName())) {
                 Log.e("HookUtil", "Activity已经开始启动");
                 Log.e("HookUtil", "小弟到此一游！！！");
-            }
-
-            if ("checkPermission".equals(method.getName())) {
-                return PackageManager.PERMISSION_GRANTED;
             }
 
             return method.invoke(iActivityManagerObject, args);

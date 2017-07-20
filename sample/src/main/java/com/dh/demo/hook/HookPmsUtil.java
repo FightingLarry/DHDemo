@@ -1,11 +1,14 @@
-package com.dh.demo.topactivity;
+package com.dh.demo.hook;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
 
 /**
  * Created by Larry on 2017/7/19.
@@ -42,5 +45,25 @@ public class HookPmsUtil {
             throw new RuntimeException("hook failed", e);
         }
     }
+
+
+    static class HookHandler implements InvocationHandler {
+
+
+        private Object mBase;
+
+        public HookHandler(Object base) {
+            mBase = base;
+        }
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            Log.d("HookUtil", "hey, baby; you are hooked!!");
+            Log.d("HookUtil", "method:" + method.getName() + " called with args:" + Arrays.toString(args));
+
+            return method.invoke(mBase, args);
+        }
+    }
+
 
 }

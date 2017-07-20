@@ -4,7 +4,7 @@ package com.dh.demo;
 import android.app.Application;
 
 import com.dh.demo.hook.HookUtil;
-import com.dh.demo.topactivity.HookPmsUtil;
+import com.dh.demo.hook.HookPmsUtil;
 
 /**
  * Created by yancai.liu on 2016/12/23.

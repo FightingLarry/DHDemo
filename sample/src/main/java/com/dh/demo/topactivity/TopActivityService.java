@@ -8,6 +8,8 @@ import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -29,6 +31,10 @@ public class TopActivityService extends Service {
 
     public static final String TAG = "TopActivityService";
     public static final String ACTION_TOP_ACTIVITY = "ACTION_TOP_ACTIVITY";
+
+    private static final int DISPLAY_TASKS = 20;
+    private static final int MAX_TASKS = DISPLAY_TASKS + 1; // allow extra for non-apps
+
     private static HandlerThread handlerThread = new HandlerThread("TopActivityService");
     static {
         handlerThread.start();
@@ -81,13 +87,27 @@ public class TopActivityService extends Service {
             // }
             // }
 
-            // 5.反射com.android.systemui.recent RecentsActivity
+            // 5.反射com.android.systemui.recent RecentsActivity,调用AMS的getRecentTasks，还是验证了uid
+            getInfoFromRecentsActivity();
 
 
 
             mWorkerThread.postDelayed(this, 5000);
         }
     };
+
+    private void getInfoFromRecentsActivity() {
+        final PackageManager pm = getApplicationContext().getPackageManager();
+        final ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RecentTaskInfo> recentTasks =
+                am.getRecentTasks(MAX_TASKS, ActivityManager.RECENT_WITH_EXCLUDED);
+        int numTasks = recentTasks.size();
+
+        Log.e(TAG, "getInfoFromRecentsActivity:" + numTasks);
+        ActivityInfo homeInfo =
+                new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).resolveActivityInfo(pm, 0);
+
+    }
 
 
     @Override
