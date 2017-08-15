@@ -22,6 +22,7 @@ import com.dh.demo.launcher.LauncherContentProviderFragment;
 import com.dh.demo.phoneinfo.PhoneInfoFragment;
 import com.dh.demo.rxjava.RxJavaFragment;
 import com.dh.demo.taskline.TaskFragment;
+import com.dh.demo.testservice.TestServiceFragment;
 import com.dh.demo.thread.WaitThread;
 import com.dh.demo.topactivity.TopActivityFragment;
 import com.dh.demo.userstate.UserStateFragment;
@@ -109,6 +110,8 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
             FragmentUtils.navigateToInNewActivity(getActivity(), ViewDragHelperFragment.class, null, view);
         } else if (o.getType() == MainModel.Type.TopActivityFragment) {
             FragmentUtils.navigateToInNewActivity(getActivity(), TopActivityFragment.class, null, view);
+        } else if (o.getType() == MainModel.Type.TestServiceFragment) {
+            FragmentUtils.navigateToInNewActivity(getActivity(), TestServiceFragment.class, null, view);
         }
 
     }
@@ -230,6 +233,11 @@ public class MainFragment extends BaseRecycleViewFragment implements AdapterClic
         model = new MainModel();
         model.setType(MainModel.Type.TopActivityFragment);
         model.setTitle("TopActivityFragment Test");
+        list.add(model);
+
+        model = new MainModel();
+        model.setType(MainModel.Type.TestServiceFragment);
+        model.setTitle("Service启动测试");
         list.add(model);
 
 

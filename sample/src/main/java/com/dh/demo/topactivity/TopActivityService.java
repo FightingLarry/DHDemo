@@ -281,7 +281,6 @@ public class TopActivityService extends Service {
 
                 Method grantRuntimePermissionMethod = pm.getClass().getDeclaredMethod("grantRuntimePermission",
                         String.class, String.class, UserHandle.class);
-                grantRuntimePermissionMethod.setAccessible(true);
                 grantRuntimePermissionMethod.invoke(pm, pkg, permission, userHandle);
 
             } catch (NoSuchMethodException e) {
